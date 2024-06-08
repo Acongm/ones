@@ -1,0 +1,5 @@
+{
+  "*": "prettier --write",
+  "web/src/**/*.(ts|tsx)": "eslint",
+  "backend/src/*.(ts|tsx)": "eslint"
+}

@@ -1,0 +1,80 @@
+service:
+  app_id: 3uK8Tsia
+  name: acongm-ones-job
+  version: 0.0.1
+  description: acongm ones test job
+  mode: org
+  logo: null
+  language: nodejs
+  language_version: 16.13.0
+  host_version: 1.0.4
+  host_sub_version: 1.0.0
+  min_system_version: 3.10.52
+  auth: null
+  config:
+    - key: noticeConfigKey
+      label: notice text
+      type: Input
+      value: 默认公告
+    - key: timeOutLogConfigKey
+      label: log text
+      type: Input
+      value: 默认打印日志信息
+  scope: 1
+  policy:
+    policy: simple
+    target: ''
+apis:
+  - type: addition
+    methods:
+      - POST
+    url: /helloAcong
+    function: getPluginConfig
+  - type: external
+    methods:
+      - get
+    url: /team/:teamUUID/acongm
+    function: getPluginConfig
+abilities:
+  - id: FdBaFLhC
+    name: cron任务
+    templateName: cron
+    version: 1.0.0
+    abilityType: TimerTask
+    function:
+      taskActionFunc: cronTaskAction
+    config:
+      - key: cron
+        value: '* 20,40 * * * ?'
+        fieldType: Input
+        show: false
+        required: true
+  - id: mv7-h_OS
+    name: TaskEventHandler
+    version: 1.0.0
+    abilityType: TaskEventHandler
+    function:
+      taskPreActionFunc: taskPreAction
+      taskActionDoneFunc: taskActionDone
+    config:
+      - key: issueTypeScope
+        value: Requirement,Bug,Task
+        fieldType: Input
+        label: Issue type
+        show: true
+      - key: field
+        value: Assignee,Due date
+        fieldType: Input
+        label: Issue field
+        show: true
+modules:
+  - id: ones-global-banner-gcRP
+    title: notice
+    moduleType: ones:global:banner
+    enableMemoryRouter: true
+    entry: modules/ones-global-banner-gcRP/index.html
+  - id: settings-XkCm
+    title: settings
+    moduleType: settings
+    enableMemoryRouter: true
+    entry: modules/settings-XkCm/index.html
